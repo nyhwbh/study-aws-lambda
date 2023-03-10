@@ -1,2 +1,2 @@
- $Env:GOOS= "linux"
- go build main.go
+$Env:GOOS= "linux"
+go build main.go
