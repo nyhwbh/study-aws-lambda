@@ -80,23 +80,7 @@ type ListData struct {
 	Price     int64
 }
 
-var NewistOrderNo = ""
-
-func CheckNewData() []ListData {
-	accessToken := GetAccessToken()
-	data := getdata(accessToken)
-	if NewistOrderNo == "" {
-		NewistOrderNo = data[0].OrderNo
-		return data
-	} else if NewistOrderNo == data[0].OrderNo {
-		return nil
-	} else {
-		NewistOrderNo = data[0].OrderNo
-		return data
-	}
-}
-
-func getdata(accessToken string) []ListData {
+func Getdata(accessToken string) []ListData {
 	// Request 객체 생성
 	req, err := http.NewRequest("GET", "https://api.imweb.me/v2/shop/orders?type=normal&status=COMPLETE", nil)
 	if err != nil {

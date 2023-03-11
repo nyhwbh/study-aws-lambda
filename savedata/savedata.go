@@ -17,37 +17,39 @@ import (
 )
 
 const (
-	// test code
-	spreadsheetID_5500 = "1u929XLIGAoJ9wISI5S2rpqbIYxv0N7smV5EO-Q8CWOo"
+	// // test code
+	// spreadsheetID_5500 = "1u929XLIGAoJ9wISI5S2rpqbIYxv0N7smV5EO-Q8CWOo"
 
-	// // main code
-	// spreadsheetID_80000  = "1miHqinWQGva5UTGXkV1nlFW_OVOWfjWJuNiTifQfNvc"
-	// spreadsheetID_100000 = "1W0-OYi2emrt6lLPe95yO7Nrfn-1-v7gQprXfD_v937Q"
-	// spreadsheetID_200000 = "11bkH00fDOh9f8PoRF0zUcikO2mC2wR7AswGyURw5UA4"
-	// spreadsheetID_790000 = "1FMu1Gr3Gw5qbmx33OP6vpIcPjxSogHiGZIVLdXn0Ok8"
+	// main code
+	spreadsheetID_80000  = "1miHqinWQGva5UTGXkV1nlFW_OVOWfjWJuNiTifQfNvc"
+	spreadsheetID_100000 = "1W0-OYi2emrt6lLPe95yO7Nrfn-1-v7gQprXfD_v937Q"
+	spreadsheetID_200000 = "11bkH00fDOh9f8PoRF0zUcikO2mC2wR7AswGyURw5UA4"
+	spreadsheetID_790000 = "1FMu1Gr3Gw5qbmx33OP6vpIcPjxSogHiGZIVLdXn0Ok8"
 )
 const sheetID uint = 0
 
 func SaveDataAll() {
-	data := bringdata.CheckNewData()
+	accessToken := bringdata.GetAccessToken()
+
+	data := bringdata.Getdata(accessToken)
 	// 가져오는 데이터에 변함이 생긴경우 함수 실행
 	if data != nil {
 		// 가져온 데이터 가격에따라 분리
 		inputData := classifyData(data)
 
-		// test code
-		savedata(spreadsheetID_5500, sheetID, inputData.class5500)
+		// // test code
+		// savedata(spreadsheetID_5500, sheetID, inputData.class5500)
 
 		// main code
 		// 분리된 데이터 각 시트에 삽입
-		// //class80000
-		// savedata(spreadsheetID_80000, sheetID, inputData.class80000)
-		// //class100000
-		// savedata(spreadsheetID_100000, sheetID, inputData.class100000)
-		// //class200000
-		// savedata(spreadsheetID_200000, sheetID, inputData.class200000)
-		// //class790000
-		// savedata(spreadsheetID_790000, sheetID, inputData.class790000)
+		//class80000
+		savedata(spreadsheetID_80000, sheetID, inputData.class80000)
+		//class100000
+		savedata(spreadsheetID_100000, sheetID, inputData.class100000)
+		//class200000
+		savedata(spreadsheetID_200000, sheetID, inputData.class200000)
+		//class790000
+		savedata(spreadsheetID_790000, sheetID, inputData.class790000)
 	}
 }
 
@@ -77,11 +79,8 @@ func savedata(spreadSheetID string, sheetID uint, inputData [][]interface{}) {
 		// 새번의 재시도를 했지만 실패한 경우
 		if i == 3 && err == nil {
 			fmt.Println("시트 연결에 실패하였습니다.")
-			// 재시도 후에도 오류가 계속 발생하는 경우
-			// NewistOrderNo 초기화 시켜 전체코드 재실행
-			bringdata.NewistOrderNo = ""
 		}
-		time.Sleep(1 * time.Second)
+		time.Sleep(15 * time.Second)
 	}
 	// 재시도후 오류가 없는 경우
 	if err == nil {
@@ -122,7 +121,7 @@ func savedata(spreadSheetID string, sheetID uint, inputData [][]interface{}) {
 			if err != nil {
 				panic(err.Error())
 			} else {
-				fmt.Println("시트에 자료 저장을 했습니다.")
+				fmt.Println("시트에 자료 저장을 했습니다. 업데이트 시간 : ", time.Now().Format("2006-01-02 15:04:05"))
 			}
 		}
 	}

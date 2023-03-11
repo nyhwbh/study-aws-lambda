@@ -10,7 +10,7 @@ import (
 func HandleRequest(ctx context.Context) (string, error) {
 	savedata.SaveDataAll()
 
-	return "AWS Lambda에서 환경변수를 가져왔습니다.", nil
+	return "Google Spread Sheet를 업데이트 했습니다.", nil
 }
 
 func main() {
