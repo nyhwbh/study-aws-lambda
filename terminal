@@ -1,2 +1,6 @@
+in terminal
 $Env:GOOS= "linux"
 go build main.go
+
+in expoler
+main -> main.zip( only main )

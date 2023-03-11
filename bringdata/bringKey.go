@@ -2,7 +2,6 @@ package bringdata
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -19,8 +18,6 @@ func GetAccessToken() string {
 	// API key와 secret key 가져오기
 	apiKey := os.Getenv("API_KEY")
 	apiSecret := os.Getenv("API_SECRET")
-
-	fmt.Println("API_SECRET = ", apiKey, " / API_SECRET = ", apiSecret)
 
 	// Request 객체 생성
 	req, err := http.NewRequest("GET", "https://api.imweb.me/v2/auth&key="+apiKey+"&secret="+apiSecret, nil)
@@ -43,8 +40,6 @@ func GetAccessToken() string {
 	if err != nil {
 		log.Fatal("Fail to unmarshalling data")
 	}
-
-	fmt.Println(tokenObj)
 
 	return tokenObj.Access_Token
 }
